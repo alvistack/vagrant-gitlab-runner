@@ -15,17 +15,17 @@
 # limitations under the License.
 
 namespace: alvistack
-name: docker-gitlab-runner
-description: Docker Image Packaging for GitLab Runner
+name: vagrant-gitlab-runner
+description: Vagrant Box Packaging for GitLab Runner
 
 version: VERSION
 readme: README.md
 license: Apache-2.0
 
-repository: https://github.com/alvistack/docker-gitlab-runner
-documentation: https://github.com/alvistack/docker-gitlab-runner
-homepage: https://github.com/alvistack/docker-gitlab-runner
-issues: https://github.com/alvistack/docker-gitlab-runner/issues
+repository: https://github.com/alvistack/vagrant-gitlab-runner
+documentation: https://github.com/alvistack/vagrant-gitlab-runner
+homepage: https://github.com/alvistack/vagrant-gitlab-runner
+issues: https://github.com/alvistack/vagrant-gitlab-runner/issues
 
 dependencies: {}
 tags:

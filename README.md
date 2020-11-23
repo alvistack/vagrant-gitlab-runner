@@ -1,4 +1,4 @@
-# Docker Image Packaging for GitLab Runner
+# Vagrant Box Packaging for GitLab Runner
 
 [![Travis](https://img.shields.io/travis/com/alvistack/docker-gitlab-runner.svg)](https://travis-ci.com/alvistack/docker-gitlab-runner)
 [![GitHub release](https://img.shields.io/github/release/alvistack/docker-gitlab-runner.svg)](https://github.com/alvistack/docker-gitlab-runner/releases)
@@ -11,7 +11,7 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Tags and Respective Packer Template Links
 
-  - [`13.5`, `latest`](https://github.com/alvistack/docker-gitlab-runner/blob/master/packer/13.5/packer.json)
+  - [`13.6`, `latest`](https://github.com/alvistack/docker-gitlab-runner/blob/master/packer/13.6/packer.json)
 
 ## Overview
 
