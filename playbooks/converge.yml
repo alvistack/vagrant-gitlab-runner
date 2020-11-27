@@ -20,49 +20,19 @@
   tasks:
     - name: groupadd
       group:
-        name: "gitlab-runner"
-        system: true
+        name: "vagrant"
+        system: false
         state: "present"
 
     - name: useradd
       user:
-        name: "gitlab-runner"
-        group: "gitlab-runner"
-        home: "/home/gitlab-runner"
+        name: "vagrant"
+        group: "vagrant"
+        home: "/home/vagrant"
         shell: "/bin/bash"
-        system: true
+        system: false
         create_home: false
         state: "present"
-
-    - name: prepare directories
-      file:
-        dest: "{{ item.dest }}"
-        owner: "{{ item.owner | default('root') }}"
-        group: "{{ item.group | default('root') }}"
-        mode: "{{ item.mode | default('0755') }}"
-        state: "{{ item.state | default('directory') }}"
-      loop:
-        - { dest: "/usr/local/bin" }
-
-    - name: copy templates
-      template:
-        dest: "{{ item.dest }}"
-        src: "{{ item.src | default('./templates' + item.dest + '.j2') }}"
-        owner: "{{ item.owner | default('root') }}"
-        group: "{{ item.group | default('root') }}"
-        mode: "{{ item.mode | default('0644') }}"
-      loop:
-        - { dest: "/usr/local/bin/docker-entrypoint.sh", mode: "0755" }
-
-    - name: prepare files
-      file:
-        dest: "{{ item.dest }}"
-        owner: "{{ item.owner | default('root') }}"
-        group: "{{ item.group | default('root') }}"
-        mode: "{{ item.mode | default('0644') }}"
-        state: "{{ item.state | default('file') }}"
-      loop:
-        - { dest: "/usr/local/bin/docker-entrypoint.sh", mode: "0755" }
 
     - include_role:
         name: bootstrap
