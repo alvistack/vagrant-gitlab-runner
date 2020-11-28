@@ -47,6 +47,9 @@
         name: timezone
 
     - include_role:
+        name: sshd
+
+    - include_role:
         name: git
 
     - include_role:
