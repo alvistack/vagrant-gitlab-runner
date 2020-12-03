@@ -18,6 +18,10 @@
 	path = roles/gitlab_runner
 	url = https://github.com/alvistack/ansible-role-gitlab_runner.git
 	branch = develop
+[submodule "roles/kernel"]
+	path = roles/kernel
+	url = https://github.com/alvistack/ansible-role-kernel.git
+	branch = develop
 [submodule "roles/libvirt"]
 	path = roles/libvirt
 	url = https://github.com/alvistack/ansible-role-libvirt.git
