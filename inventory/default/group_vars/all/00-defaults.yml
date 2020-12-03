@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # gitlab-runner
-gitlab_runner_concurrent: 1
+gitlab_runner_concurrent: "1"
 gitlab_runner_runners_name: "alvistack/gitlab-runner"
 gitlab_runner_runners_url: "https://gitlab.com/"
 gitlab_runner_runners_token: ~

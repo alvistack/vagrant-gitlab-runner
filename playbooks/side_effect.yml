@@ -19,75 +19,41 @@
   become: true
   gather_facts: false
   tasks:
-    - name: rm -f /var/lib/systemd/random-seed
-      raw: |
-        set -ex
-        rm -f /var/lib/systemd/random-seed
+    - name: rm -rf /root/.ansible/tmp/*
+      shell: |
+        set -o pipefail
+        rm -rf /root/.ansible/tmp/*
+        rm -rf /root/.cache/*
+        rm -rf /tmp/*
+      args:
+        executable: "/bin/bash"
+      changed_when: false
+      ignore_errors: true
+
+    - name: truncate --size 0 /etc/machine-id
+      shell: |
+        set -o pipefail
+        truncate --size 0 /etc/machine-id
+        ln -fs /etc/machine-id /var/lib/dbus/machine-id
+      args:
+        executable: "/bin/bash"
       changed_when: false
       ignore_errors: true
 
     - name: rm -rf /etc/ssh/ssh_host_*
       shell: |
-        set -ex
-        rm -rf /etc/ssh/ssh_host_*
-        cat > /etc/cron.d/ssh-keygen <<-EOF
-        @reboot root command bash -c 'ssh-keygen -A && rm -rf /etc/cron.d/ssh-keygen'
-        EOF
-      changed_when: false
-      ignore_errors: true
-
-    - name: /usr/bin/systemd-machine-id-setup
-      shell: |
         set -o pipefail
-        test -f /etc/machine-id && truncate --size=0 /etc/machine-id
-        test -f /run/machine-id && truncate --size=0 /run/machine-id
-        cat > /etc/cron.d/systemd-machine-id-setup <<-EOF
-        @reboot root command bash -c '/usr/bin/systemd-machine-id-setup && rm -rf /etc/cron.d/systemd-machine-id-setup'
-        EOF
+        rm -rf /etc/ssh/ssh_host_*
       args:
         executable: "/bin/bash"
       changed_when: false
       ignore_errors: true
-    
-    - name: rm -rf /var/lib/dhcp/*.lease*
-      raw: |
-        set -ex
-        rm -rf /var/lib/NetworkManager/*.lease*
-        rm -rf /var/lib/dhclient/*.lease*
-        rm -rf /var/lib/dhcp/*.lease*
-      changed_when: false
-      ignore_errors: true
-    
-    - name: rm -rf /root/.ansible/tmp/*
-      raw: |
-        set -ex
-        rm -rf /root/.ansible/tmp/*
-        rm -rf /root/.cache/*
-        rm -rf /tmp/*
-      changed_when: false
-      ignore_errors: true
 
-    - name: debian | apt-get -y autoclean
-      raw: |
-        set -ex
-        apt-get -y autoremove
-        apt-get -y autoclean
-        rm -rf /var/lib/apt/lists/*
-      changed_when: false
-      ignore_errors: true
-
-    - name: redhat | yum clean all
-      raw: |
-        set -ex
-        yum clean all
-        rm -rf /var/cache/yum/*
-      changed_when: false
-      ignore_errors: true
-
-    - name: suse | zypper clean --all
-      raw: |
-        set -ex
-        zypper clean --all
-        rm -rf /var/cache/zypper/*
+    - name: rm -f /var/lib/systemd/random-seed
+      shell: |
+        set -o pipefail
+        rm -f /var/lib/systemd/random-seed
+      args:
+        executable: "/bin/bash"
       changed_when: false
       ignore_errors: true
