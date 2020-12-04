@@ -19,12 +19,26 @@
   become: true
   gather_facts: false
   tasks:
+    - name: reboot
+      reboot:
+        reboot_timeout: 300
+
+    - name: apt-get -y autoremove
+      shell: |
+        set -o pipefail
+        apt-get -y autoremove
+        apt-get -y autoclean
+        apt-get -y clean
+      args:
+        executable: "/bin/bash"
+      changed_when: false
+      ignore_errors: true
+
     - name: rm -rf /root/.ansible/tmp/*
       shell: |
         set -o pipefail
         rm -rf /root/.ansible/tmp/*
         rm -rf /root/.cache/*
-        rm -rf /tmp/*
       args:
         executable: "/bin/bash"
       changed_when: false
