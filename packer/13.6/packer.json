@@ -16,9 +16,8 @@
         "sudo virt-sparsify --in-place /var/lib/libvirt/images/output-vagrant_source.img",
         "sudo virsh pool-refresh default",
         "cd output-vagrant",
-        "export VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-customize,-ssh-userdir\"",
-        "vagrant package source",
-        "vagrant destroy --force source || true"
+        "sudo VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-customize,-ssh-userdir\" vagrant package source",
+        "sudo vagrant destroy --force source"
       ],
       "type": "shell-local"
     }

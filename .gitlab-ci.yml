@@ -1,0 +1,60 @@
+---
+
+.script-packer: &script-packer
+  - |
+    curl -Os https://github.com/hashicorp/packer/releases/download/nightly/packer_linux_amd64.zip
+    sudo unzip -qq -o -d /usr/local/bin packer_linux_amd64.zip
+    rm -rf packer_linux_amd64.zip
+
+.script-vagrant: &script-vagrant
+  - |
+    curl -Os https://releases.hashicorp.com/vagrant/2.2.14/vagrant_2.2.14_x86_64.deb
+    sudo dpkg -i vagrant_2.2.14_x86_64.deb
+    rm -rf vagrant_2.2.14_*
+
+.script-libvirt: &script-libvirt
+  - |
+    sudo apt-get update
+    sudo apt-get install -y binutils bridge-utils dnsmasq-base ebtables gcc libguestfs-tools libvirt-clients libvirt-daemon-system libvirt-dev make qemu-kvm qemu-utils ruby-dev
+    vagrant plugin install vagrant-libvirt
+
+.script-ansible: &script-ansible
+  - |
+    sudo apt-get update
+    sudo apt-get -y install ca-certificates curl gcc iproute2 pwgen python3 python3-dev sudo
+    curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3 - --prefix=/usr/local
+    sudo -H pip3 install --prefix=/usr/local --upgrade --ignore-installed --requirement requirements.txt
+
+.script-packer-build: &script-packer-build
+  - |
+    cd packer/$PACKER_BUILDER_NAME
+    packer build packer.json
+
+.job-packer: &job-packer
+  script:
+    - *script-packer
+    - *script-vagrant
+    - *script-libvirt
+    - *script-ansible
+    - *script-packer-build
+
+default:
+  before_script:
+    - |
+      git submodule sync --recursive
+      git submodule update --init --recursive
+
+    - |
+      yamllint .
+      ansible-lint
+      flake8
+
+"13.6":
+  script:
+    - |
+      cd packer/13.6
+      packer build packer.json
+      vagrant cloud auth login --token $VAGRANT_TOKEN
+      vagrant cloud provider delete --force alvistack/gitlab-runner libvirt 13.6
+      vagrant cloud provider create alvistack/gitlab-runner libvirt 13.6
+      vagrant cloud provider upload alvistack/gitlab-runner libvirt 13.6 output-vagrant/package.box
