@@ -1,8 +1,8 @@
 # Vagrant Box Packaging for GitLab Runner
 
-[![Travis](https://img.shields.io/travis/com/alvistack/docker-gitlab-runner.svg)](https://travis-ci.com/alvistack/docker-gitlab-runner)
-[![GitHub release](https://img.shields.io/github/release/alvistack/docker-gitlab-runner.svg)](https://github.com/alvistack/docker-gitlab-runner/releases)
-[![GitHub license](https://img.shields.io/github/license/alvistack/docker-gitlab-runner.svg)](https://github.com/alvistack/docker-gitlab-runner/blob/master/LICENSE)
+[![Travis](https://img.shields.io/travis/com/alvistack/vagrant-gitlab-runner.svg)](https://travis-ci.com/alvistack/vagrant-gitlab-runner)
+[![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
+[![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE)
 [![Docker Pulls](https://img.shields.io/docker/pulls/alvistack/gitlab-runner.svg)](https://hub.docker.com/r/alvistack/gitlab-runner/)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
@@ -11,7 +11,8 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Tags and Respective Packer Template Links
 
-  - [`13.6`, `latest`](https://github.com/alvistack/docker-gitlab-runner/blob/master/packer/13.6/packer.json)
+  - [`13.6`, `latest`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6/packer.json)
+  - [`13.5`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5/packer.json)
 
 ## Overview
 
@@ -63,11 +64,11 @@ For evaluations you can use the built-in database that will store its files in t
 
 ### `alvistack/gitlab-runner:latest`
 
-The `latest` tag matches the most recent [GitHub Release](https://github.com/alvistack/docker-gitlab-runner/releases) of this repository. Thus using `alvistack/gitlab-runner:latest` or `alvistack/gitlab-runner` will ensure you are running the most up to date stable version of this image.
+The `latest` tag matches the most recent [GitHub Release](https://github.com/alvistack/vagrant-gitlab-runner/releases) of this repository. Thus using `alvistack/gitlab-runner:latest` or `alvistack/gitlab-runner` will ensure you are running the most up to date stable version of this image.
 
 ### `alvistack/gitlab-runner:<version>`
 
-The version tags are rolling release rebuild by [Travis](https://travis-ci.com/alvistack/docker-gitlab-runner) in weekly basis. Thus using these tags will ensure you are running the latest packages provided by the base image project.
+The version tags are rolling release rebuild by [Travis](https://travis-ci.com/alvistack/vagrant-gitlab-runner) in weekly basis. Thus using these tags will ensure you are running the latest packages provided by the base image project.
 
 ## License
 

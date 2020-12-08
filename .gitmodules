@@ -50,3 +50,7 @@
 	path = roles/vagrant
 	url = https://github.com/alvistack/ansible-role-vagrant.git
 	branch = develop
+[submodule "roles/virtualbox"]
+	path = roles/virtualbox
+	url = https://github.com/alvistack/ansible-role-virtualbox.git
+	branch = develop

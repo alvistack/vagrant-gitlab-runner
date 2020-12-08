@@ -34,16 +34,6 @@
       changed_when: false
       ignore_errors: true
 
-    - name: rm -rf /root/.ansible/tmp/*
-      shell: |
-        set -o pipefail
-        rm -rf /root/.ansible/tmp/*
-        rm -rf /root/.cache/*
-      args:
-        executable: "/bin/bash"
-      changed_when: false
-      ignore_errors: true
-
     - name: truncate --size 0 /etc/machine-id
       shell: |
         set -o pipefail
