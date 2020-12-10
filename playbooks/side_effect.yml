@@ -25,6 +25,7 @@
 
     - name: rm -rf /root/.ansible/tmp/*
       raw: |
+        set -eu
         rm -rf /root/.ansible/tmp/*
         rm -rf /root/.cache/*
         rm -rf /tmp/*
@@ -33,6 +34,7 @@
 
     - name: apt-get -y clean
       raw: |
+        set -eu
         apt-get -y autoremove
         apt-get -y autoclean
         apt-get -y clean
@@ -42,6 +44,7 @@
 
     - name: truncate --size 0 /etc/machine-id
       raw: |
+        set -eu
         truncate --size 0 /etc/machine-id
         ln -fs /etc/machine-id /var/lib/dbus/machine-id
       changed_when: false
@@ -49,12 +52,14 @@
 
     - name: rm -rf /etc/ssh/ssh_host_*
       raw: |
+        set -eu
         rm -rf /etc/ssh/ssh_host_*
       changed_when: false
       ignore_errors: true
 
     - name: rm -f /var/lib/systemd/random-seed
       raw: |
+        set -eu
         rm -f /var/lib/systemd/random-seed
       changed_when: false
       ignore_errors: true

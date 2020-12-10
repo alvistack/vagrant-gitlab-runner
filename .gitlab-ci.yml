@@ -1,5 +1,10 @@
 ---
 
+.script-git-submodule: &script-git-submodule
+  - |
+    git submodule sync --recursive
+    git submodule update --init --recursive
+
 .script-bootstrap-packer: &script-bootstrap-packer
   - |
     curl -skL -O https://github.com/hashicorp/packer/releases/download/nightly/packer_linux_amd64.zip
@@ -26,10 +31,30 @@
     curl -skL https://bootstrap.pypa.io/get-pip.py | sudo -H python3 - --prefix=/usr/local
     sudo -H pip3 install --prefix=/usr/local --upgrade --ignore-installed --requirement requirements.txt
 
+.script-linters: &script-linters
+  - |
+    yamllint .
+    ansible-lint
+    flake8
+
 .script-packer-build: &script-packer-build
   - |
     cd packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
-    packer build packer.json
+    sudo packer build packer.json
+
+.script-vagrant-cloud: &script-vagrant-cloud
+  - |
+    vagrant cloud auth login --token $VAGRANT_TOKEN
+    export _VAGRANT_BOX=$CI_PROJECT_NAMESPACE/$(echo $CI_PROJECT_NAME | sed 's/^vagrant-//g')
+    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
+      vagrant cloud provider delete --force $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG || echo $?
+      vagrant cloud provider create $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG
+      vagrant cloud provider upload --direct $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG output-vagrant/package.box
+    elif [[ -n "$CI_COMMIT_BRANCH" ]] && [[ "$CI_COMMIT_BRANCH" =~ master ]]; then
+      vagrant cloud provider delete --force $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION || echo $?
+      vagrant cloud provider create $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION
+      vagrant cloud provider upload --direct $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION output-vagrant/package.box
+    fi
 
 .job-packer: &job-packer
   script:
@@ -37,32 +62,13 @@
     - *script-bootstrap-vagrant
     - *script-bootstrap-libvirt
     - *script-bootstrap-ansible
+    - *script-linters
     - *script-packer-build
+    - *script-vagrant-cloud
 
 default:
   before_script:
-    - |
-      git submodule sync --recursive
-      git submodule update --init --recursive
-
-    - |
-      yamllint .
-      ansible-lint
-      flake8
-
-  after_script:
-    - |
-      vagrant cloud auth login --token $VAGRANT_TOKEN
-      export _VAGRANT_BOX=$CI_PROJECT_NAMESPACE/$(echo $CI_PROJECT_NAME | sed 's/^vagrant-//g')
-      if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
-        vagrant cloud provider delete --force $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG || echo $?
-        vagrant cloud provider create $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG
-        vagrant cloud provider upload --direct $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $CI_COMMIT_TAG output-vagrant/package.box
-      elif [[ -n "$CI_COMMIT_BRANCH" ]] && [[ "$CI_COMMIT_BRANCH" =~ master ]]; then
-        vagrant cloud provider delete --force $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION || echo $?
-        vagrant cloud provider create $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION
-        vagrant cloud provider upload --direct $_VAGRANT_BOX $_PACKER_BUILDER_PROVIDER $_PACKER_BUILDER_VERSION output-vagrant/package.box
-      fi
+    - *script-git-submodule
 
 libvirt-13.6:
   <<: *job-packer
