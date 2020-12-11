@@ -44,6 +44,7 @@
 
 .script-vagrant-cloud: &script-vagrant-cloud
   - |
+    set -ex
     vagrant cloud auth login --token $VAGRANT_TOKEN
     export _VAGRANT_BOX=$CI_PROJECT_NAMESPACE/$(echo $CI_PROJECT_NAME | sed 's/^vagrant-//g')
     if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
