@@ -55,12 +55,12 @@
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      --data '{ "box": { "username": "$_ORG", "name": "$_BOX", "is_private": false } }' \
+      --data "{ \"box\": { \"username\": \"$_ORG\", \"name\": \"$_BOX\", \"is_private\": false } }" \
       https://app.vagrantup.com/api/v1/boxes
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      --data '{ "version": { "version": "$_VERSION" } }' \
+      --data "{ \"version\": { \"version\": \"$_VERSION\" } }" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
     curl -skL \
       --request DELETE \
@@ -70,7 +70,7 @@
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      --data '{ "provider": { "name": "$_PROVIDER" } }' \
+      --data "{ \"provider\": { \"name\": \"$_PROVIDER\" } }" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/providers
     _UPLOAD_PATH=$(curl -skL \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
