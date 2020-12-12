@@ -4,6 +4,12 @@
 
 ### Major Changes
 
+## 13.6.0+20201212.1.0 - 2020-12-12
+
+### Major Changes
+
+  - Change GIT tag as per Vagrant Box naming and versioning limitation
+
 ## 13.6.0-4alvistack1 - 2020-11-23
 
   - Ubuntu 20.04 based
