@@ -55,7 +55,7 @@
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      --data '{ "box": { "username": "$_ORG", "name": "$_BOX", "is_private": false } }'
+      --data '{ "box": { "username": "$_ORG", "name": "$_BOX", "is_private": false } }' \
       https://app.vagrantup.com/api/v1/boxes
     curl -skL \
       --header "Content-Type: application/json" \
