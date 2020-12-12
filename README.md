@@ -11,8 +11,8 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Tags and Respective Packer Template Links
 
-  - [`13.6`, `latest`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6/packer.json)
-  - [`13.5`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5/packer.json)
+  - [`13.6.0`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6.0/packer.json)
+  - [`13.5.0`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5.0/packer.json)
 
 ## Overview
 

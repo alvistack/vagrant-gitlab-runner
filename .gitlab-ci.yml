@@ -42,7 +42,7 @@
     cd packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
     sudo packer build packer.json
 
-.script-vagrant-cloud: &script-vagrant-cloud
+.script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
   - |
     sudo apt-get update
     sudo apt-get -y install jq
@@ -56,39 +56,35 @@
     else
       exit 0
     fi
-    curl -skL \
-      --header "Content-Type: application/json" \
-      --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      --data '{ "version": { "version": "$_VERSION" } }' \
-      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
-    sleep 1
+    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
+      curl -skL \
+        --header "Content-Type: application/json" \
+        --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+        --data '{ "version": { "version": "$_VERSION" } }' \
+        https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
+    fi
     curl -skL \
       --request DELETE \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/provider/$_PROVIDER
-    sleep 1
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       --data '{ "provider": { "name": "$_PROVIDER" } }' \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/providers
-    sleep 1
     _UPLOAD_PATH=$(curl -skL \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/provider/$_PROVIDER/upload | jq -r .upload_path)
-    sleep 1
     curl -skL \
       --request PUT \
       --header "Connection: keep-alive" \
       --upload-file output-vagrant/package.box \
       $_UPLOAD_PATH
-    sleep 1
     curl -skL \
       --request PUT \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/release
-    exit 0
 
 .job-packer: &job-packer
   script:
@@ -98,20 +94,20 @@
     - *script-bootstrap-ansible
     - *script-linters
     - *script-packer-build
-    - *script-vagrant-cloud
+    - *script-vagrant-cloud-provider-upload
 
 default:
   before_script:
     - *script-git-submodule
 
-libvirt-13.6:
+libvirt-13.6.0:
   <<: *job-packer
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.6"
+    _PACKER_BUILDER_VERSION: "13.6.0"
 
-libvirt-13.5:
+libvirt-13.5.0:
   <<: *job-packer
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.5"
+    _PACKER_BUILDER_VERSION: "13.5.0"
