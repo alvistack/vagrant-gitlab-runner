@@ -44,25 +44,24 @@
 
 .script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
   - |
-    sudo apt-get update
-    sudo apt-get -y install jq
     export _ORG=$CI_PROJECT_NAMESPACE
-    export _BOX=$(echo $CI_PROJECT_NAME | sed 's/^vagrant-//g')
+    export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
     export _PROVIDER=$_PACKER_BUILDER_PROVIDER
-    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
-      export _VERSON=$CI_COMMIT_TAG
-    elif [[ -n "$CI_COMMIT_BRANCH" ]] && [[ "$CI_COMMIT_BRANCH" =~ master ]]; then
-      export _VERSION=$_PACKER_BUILDER_VERSION
+    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$_PACKER_BUILDER_VERSION ]]; then
+      export _VERSION=$(echo $CI_COMMIT_TAG | sed "s/^$_PACKER_BUILDER_VERSION+//g")
     else
       exit 0
     fi
-    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$PACKER_BUILDER_VERSION ]]; then
-      curl -skL \
-        --header "Content-Type: application/json" \
-        --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-        --data '{ "version": { "version": "$_VERSION" } }' \
-        https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
-    fi
+    curl -skL \
+      --header "Content-Type: application/json" \
+      --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+      --date '{ "box": { "username": "$_ORG", "name": "$_BOX", "is_private": false } }'
+      https://app.vagrantup.com/api/v1/boxes
+    curl -skL \
+      --header "Content-Type: application/json" \
+      --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
+      --data '{ "version": { "version": "$_VERSION" } }' \
+      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
     curl -skL \
       --request DELETE \
       --header "Content-Type: application/json" \

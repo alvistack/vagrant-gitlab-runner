@@ -1,6 +1,6 @@
 # Vagrant Box Packaging for GitLab Runner
 
-## 13.6.0-XalvistackY - TBC
+## 13.6.0+YYYYMMDD.Y.Z - TBC
 
 ### Major Changes
 
