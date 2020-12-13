@@ -1,18 +1,20 @@
 # Vagrant Box Packaging for GitLab Runner
 
-[![Travis](https://img.shields.io/travis/com/alvistack/vagrant-gitlab-runner.svg)](https://travis-ci.com/alvistack/vagrant-gitlab-runner)
+[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE)
-[![Docker Pulls](https://img.shields.io/docker/pulls/alvistack/gitlab-runner.svg)](https://hub.docker.com/r/alvistack/gitlab-runner/)
+[![Vagrant Box download](https://img.shields.io/vagrant/pulls/alvistack/gitlab-runner.svg)](https://hub.vagrant.com/r/alvistack/gitlab-runner/)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
 
 Learn more about GitLab: <https://about.gitlab.com/>
 
-## Supported Tags and Respective Packer Template Links
+## Supported Boxes and Respective Packer Template Links
 
-  - [`13.6.0`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6.0/packer.json)
-  - [`13.5.0`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5.0/packer.json)
+  - [`alvistack/gitlab-runner-13.6`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.6)
+      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6/packer.json)
+  - [`alvistack/gitlab-runner-13.5`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.5)
+      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5/packer.json)
 
 ## Overview
 

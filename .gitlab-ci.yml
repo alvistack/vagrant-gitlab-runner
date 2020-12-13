@@ -47,8 +47,8 @@
     export _ORG=$CI_PROJECT_NAMESPACE
     export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
     export _PROVIDER=$_PACKER_BUILDER_PROVIDER
-    if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^$_PACKER_BUILDER_VERSION ]]; then
-      export _VERSION=$(echo $CI_COMMIT_TAG | sed "s/^$_PACKER_BUILDER_VERSION+//g")
+    if [[ -n "$CI_COMMIT_TAG" ]]; then
+      export _VERSION=$CI_COMMIT_TAG
     else
       exit 0
     fi
@@ -56,22 +56,22 @@
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       --data "{ \"box\": { \"username\": \"$_ORG\", \"name\": \"$_BOX\", \"is_private\": false } }" \
-      https://app.vagrantup.com/api/v1/boxes
+      https://app.vagrantup.com/api/v1/boxes | jq .
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       --data "{ \"version\": { \"version\": \"$_VERSION\" } }" \
-      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions
+      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/versions | jq .
     curl -skL \
       --request DELETE \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/provider/$_PROVIDER
+      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/provider/$_PROVIDER | jq .
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       --data "{ \"provider\": { \"name\": \"$_PROVIDER\" } }" \
-      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/providers
+      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/providers | jq .
     _UPLOAD_PATH=$(curl -skL \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/provider/$_PROVIDER/upload | jq -r .upload_path)
@@ -79,11 +79,11 @@
       --request PUT \
       --header "Connection: keep-alive" \
       --upload-file output-vagrant/package.box \
-      $_UPLOAD_PATH
+      $_UPLOAD_PATH | jq .
     curl -skL \
       --request PUT \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
-      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/release
+      https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/release | jq .
 
 .job-packer: &job-packer
   script:
@@ -99,14 +99,14 @@ default:
   before_script:
     - *script-git-submodule
 
-libvirt-13.6.0:
+libvirt-13.6:
   <<: *job-packer
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.6.0"
+    _PACKER_BUILDER_VERSION: "13.6"
 
-libvirt-13.5.0:
+libvirt-13.5:
   <<: *job-packer
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.5.0"
+    _PACKER_BUILDER_VERSION: "13.5"
