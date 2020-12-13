@@ -1,10 +1,10 @@
 # Vagrant Box Packaging for GitLab Runner
 
-## 13.6.0+YYYYMMDD.Y.Z - TBC
+## YYYYMMDD.Y.Z - TBC
 
 ### Major Changes
 
-## 13.6.0+20201212.1.3 - 2020-12-12
+## 20201213.0.0 - 2020-12-13
 
 ### Major Changes
 
