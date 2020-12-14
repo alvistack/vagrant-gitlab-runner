@@ -2,7 +2,7 @@
   "builders": [
     {
       "communicator": "ssh",
-      "provider": "libvirt",
+      "provider": "virtualbox",
       "skip_package": true,
       "source_path": "generic/ubuntu2004",
       "teardown_method": "halt",
@@ -14,10 +14,8 @@
     {
       "inline": [
         "set -eu",
-        "sudo virt-sparsify --in-place /var/lib/libvirt/images/output-vagrant_source.img",
-        "sudo virsh pool-refresh default",
         "cd output-vagrant",
-        "sudo VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-customize,-ssh-userdir\" vagrant package source",
+        "sudo vagrant package source",
         "sudo vagrant destroy --force source"
       ],
       "type": "shell-local"
