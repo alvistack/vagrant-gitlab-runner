@@ -4,10 +4,11 @@
 
 ### Major Changes
 
-## 20201213.0.1 - 2020-12-13
+## 20201214.1.1 - 2020-12-14
 
 ### Major Changes
 
+  - Add VirtualBox provider
   - Change GIT tag as per Vagrant Box naming and versioning limitation
 
 ## 13.6.0-4alvistack1 - 2020-11-23

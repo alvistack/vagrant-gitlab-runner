@@ -13,8 +13,10 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
   - [`alvistack/gitlab-runner-13.6`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.6)
       - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.6/packer.json)
+      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-13.6/packer.json)
   - [`alvistack/gitlab-runner-13.5`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.5)
       - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.5/packer.json)
+      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-13.5/packer.json)
 
 ## Overview
 

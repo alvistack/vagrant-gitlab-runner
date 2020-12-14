@@ -14,10 +14,11 @@
     {
       "inline": [
         "set -eu",
-        "sudo virt-sparsify --in-place /var/lib/libvirt/images/output-vagrant_source.img",
-        "sudo virsh pool-refresh default",
+        "export _QCOW2=$(sudo bash -c \"ls -1d /var/lib/libvirt/images/output-vagrant_source*.img\")",
+        "sudo virt-sysprep --operations defaults,-ssh-userdir,-ssh-hostkeys,-customize -a \"$_QCOW2\"",
+        "sudo virt-sparsify --in-place \"$_QCOW2\"",
         "cd output-vagrant",
-        "sudo VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-customize,-ssh-userdir\" vagrant package source",
+        "sudo VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-ssh-userdir,-ssh-hostkeys,-customize\" vagrant package source",
         "sudo vagrant destroy --force source"
       ],
       "type": "shell-local"
