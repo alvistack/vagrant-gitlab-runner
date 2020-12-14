@@ -112,3 +112,15 @@ libvirt-13.5:
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
+
+virtualbox-13.6:
+  <<: *job-packer
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.6"
+
+virtualbox-13.5:
+  <<: *job-packer
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.5"
