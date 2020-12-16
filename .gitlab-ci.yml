@@ -24,6 +24,14 @@
     sudo vagrant plugin install vagrant-libvirt
     sudo systemctl start libvirtd
 
+.script-bootstrap-virtualbox: &script-bootstrap-virtualbox
+  - |
+    curl -skL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add -
+    sudo add-apt-repository -y "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib"
+    sudo apt-get update
+    sudo apt-get install -y virtualbox-6.1
+    sudo systemctl start vboxdrv.service
+
 .script-bootstrap-ansible: &script-bootstrap-ansible
   - |
     sudo apt-get update
@@ -39,11 +47,21 @@
 
 .script-packer-build: &script-packer-build
   - |
-    cd packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
+    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
     sudo packer build packer.json
+
+.script-vagrant-up: &script-vagrant-up
+  - |
+    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
+    export _ORG=$CI_PROJECT_NAMESPACE
+    export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
+    vagrant box add $_ORG/$_BOX output-vagrant/package.box
+    vagrant init $_ORG/$_BOX
+    vagrant up
 
 .script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
   - |
+    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
     export _ORG=$CI_PROJECT_NAMESPACE
     export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
     export _PROVIDER=$_PACKER_BUILDER_PROVIDER
@@ -87,40 +105,143 @@
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/release | jq .
 
-.job-packer: &job-packer
+.job-packer-build: &job-packer-build
   script:
     - *script-bootstrap-packer
     - *script-bootstrap-vagrant
     - *script-bootstrap-libvirt
+    - *script-bootstrap-virtualbox
     - *script-bootstrap-ansible
     - *script-linters
     - *script-packer-build
+
+.job-vagrant-up: &job-vagrant-up
+  script:
+    - *script-bootstrap-vagrant
+    - *script-bootstrap-libvirt
+    - *script-bootstrap-virtualbox
+    - *script-vagrant-up
+
+.job-vagrant-cloud-provider-upload: &job-vagrant-cloud-provider-upload
+  script:
+    - *script-bootstrap-vagrant
     - *script-vagrant-cloud-provider-upload
 
 default:
+  cache:
+    paths:
+      - packer/*/output-vagrant/*.box
   before_script:
     - *script-git-submodule
 
-libvirt-13.6:
-  <<: *job-packer
+build:libvirt-13.6:
+  <<: *job-packer-build
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.6"
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
 
-libvirt-13.5:
-  <<: *job-packer
+test:libvirt-13.6:
+  <<: *job-vagrant-up
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.6"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.6"
+  dependencies:
+    - build:libvirt-13.6
+
+deploy:libvirt-13.6:
+  <<: *job-vagrant-cloud-provider-upload
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.6"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.6"
+  dependencies:
+    - test:libvirt-13.6
+
+build:libvirt-13.5:
+  <<: *job-packer-build
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.5"
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
 
-virtualbox-13.6:
-  <<: *job-packer
+test:libvirt-13.5:
+  <<: *job-vagrant-up
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.5"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.5"
+  dependencies:
+    - build:libvirt-13.5
+
+deploy:libvirt-13.5:
+  <<: *job-vagrant-cloud-provider-upload
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.5"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.5"
+  dependencies:
+    - test:libvirt-13.5
+
+build:virtualbox-13.6:
+  <<: *job-packer-build
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.6"
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
 
-virtualbox-13.5:
-  <<: *job-packer
+test:virtualbox-13.6:
+  <<: *job-vagrant-up
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.6"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.6"
+  dependencies:
+    - build:virtualbox-13.6
+
+deploy:virtualbox-13.6:
+  <<: *job-vagrant-cloud-provider-upload
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.6"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.6"
+  dependencies:
+    - test:virtualbox-13.6
+
+build:virtualbox-13.5:
+  <<: *job-packer-build
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.5"
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
+
+test:virtualbox-13.5:
+  <<: *job-vagrant-up
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.5"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.5"
+  dependencies:
+    - build:virtualbox-13.5
+
+deploy:virtualbox-13.5:
+  <<: *job-vagrant-cloud-provider-upload
+  cache:
+    key: "$CI_PIPELINE_ID-virtualbox-13.5"
+  variables:
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.5"
+  dependencies:
+    - test:virtualbox-13.5
