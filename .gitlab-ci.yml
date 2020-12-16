@@ -133,6 +133,7 @@ default:
 
 build:libvirt-13.6:
   <<: *job-packer-build
+  stage: build
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
     paths:
@@ -143,6 +144,7 @@ build:libvirt-13.6:
 
 test:libvirt-13.6:
   <<: *job-vagrant-up
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
     paths:
@@ -155,6 +157,7 @@ test:libvirt-13.6:
 
 deploy:libvirt-13.6:
   <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
     paths:
@@ -167,6 +170,7 @@ deploy:libvirt-13.6:
 
 build:libvirt-13.5:
   <<: *job-packer-build
+  stage: build
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
     paths:
@@ -177,6 +181,7 @@ build:libvirt-13.5:
 
 test:libvirt-13.5:
   <<: *job-vagrant-up
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
     paths:
@@ -189,6 +194,7 @@ test:libvirt-13.5:
 
 deploy:libvirt-13.5:
   <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
     paths:
@@ -201,6 +207,7 @@ deploy:libvirt-13.5:
 
 build:virtualbox-13.6:
   <<: *job-packer-build
+  stage: build
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
     paths:
@@ -211,6 +218,7 @@ build:virtualbox-13.6:
 
 test:virtualbox-13.6:
   <<: *job-vagrant-up
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
     paths:
@@ -223,6 +231,7 @@ test:virtualbox-13.6:
 
 deploy:virtualbox-13.6:
   <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
     paths:
@@ -235,6 +244,7 @@ deploy:virtualbox-13.6:
 
 build:virtualbox-13.5:
   <<: *job-packer-build
+  stage: build
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
     paths:
@@ -245,6 +255,7 @@ build:virtualbox-13.5:
 
 test:virtualbox-13.5:
   <<: *job-vagrant-up
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
     paths:
@@ -257,6 +268,7 @@ test:virtualbox-13.5:
 
 deploy:virtualbox-13.5:
   <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
     paths:
