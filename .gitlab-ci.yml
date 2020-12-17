@@ -56,7 +56,7 @@
     export _ORG=$CI_PROJECT_NAMESPACE
     export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
     vagrant box add --name $_ORG/$_BOX output-vagrant/package.box
-    vagrant init $_ORG/$_BOX
+    vagrant init --box-version 0 $_ORG/$_BOX
     vagrant up
 
 .script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
