@@ -106,6 +106,9 @@
       https://app.vagrantup.com/api/v1/box/$_ORG/$_BOX/version/$_VERSION/release | jq .
 
 .job-packer-build: &job-packer-build
+  cache:
+    paths:
+      - packer/*/output-vagrant/*.box
   script:
     - *script-bootstrap-packer
     - *script-bootstrap-vagrant
@@ -116,6 +119,10 @@
     - *script-packer-build
 
 .job-vagrant-up: &job-vagrant-up
+  cache:
+    paths:
+      - packer/*/output-vagrant/*.box
+    policy: pull
   script:
     - *script-bootstrap-vagrant
     - *script-bootstrap-libvirt
@@ -123,6 +130,10 @@
     - *script-vagrant-up
 
 .job-vagrant-cloud-provider-upload: &job-vagrant-cloud-provider-upload
+  cache:
+    paths:
+      - packer/*/output-vagrant/*.box
+    policy: pull
   script:
     - *script-bootstrap-vagrant
     - *script-vagrant-cloud-provider-upload
@@ -136,8 +147,6 @@ build:libvirt-13.6:
   stage: build
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -147,8 +156,6 @@ test:libvirt-13.6:
   stage: test
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -160,8 +167,6 @@ deploy:libvirt-13.6:
   stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -173,8 +178,6 @@ build:libvirt-13.5:
   stage: build
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -184,8 +187,6 @@ test:libvirt-13.5:
   stage: test
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -197,8 +198,6 @@ deploy:libvirt-13.5:
   stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -210,8 +209,6 @@ build:virtualbox-13.6:
   stage: build
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -221,8 +218,6 @@ test:virtualbox-13.6:
   stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -234,8 +229,6 @@ deploy:virtualbox-13.6:
   stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -247,8 +240,6 @@ build:virtualbox-13.5:
   stage: build
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -258,8 +249,6 @@ test:virtualbox-13.5:
   stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -271,8 +260,6 @@ deploy:virtualbox-13.5:
   stage: deploy
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
