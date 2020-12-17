@@ -152,7 +152,7 @@ test:libvirt-13.6:
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
-  dependencies:
+  needs:
     - build:libvirt-13.6
 
 deploy:libvirt-13.6:
@@ -165,7 +165,7 @@ deploy:libvirt-13.6:
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
-  dependencies:
+  needs:
     - test:libvirt-13.6
 
 build:libvirt-13.5:
@@ -189,7 +189,7 @@ test:libvirt-13.5:
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
-  dependencies:
+  needs:
     - build:libvirt-13.5
 
 deploy:libvirt-13.5:
@@ -202,7 +202,7 @@ deploy:libvirt-13.5:
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
-  dependencies:
+  needs:
     - test:libvirt-13.5
 
 build:virtualbox-13.6:
@@ -226,7 +226,7 @@ test:virtualbox-13.6:
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
-  dependencies:
+  needs:
     - build:virtualbox-13.6
 
 deploy:virtualbox-13.6:
@@ -239,7 +239,7 @@ deploy:virtualbox-13.6:
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
-  dependencies:
+  needs:
     - test:virtualbox-13.6
 
 build:virtualbox-13.5:
@@ -263,7 +263,7 @@ test:virtualbox-13.5:
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
-  dependencies:
+  needs:
     - build:virtualbox-13.5
 
 deploy:virtualbox-13.5:
@@ -276,5 +276,5 @@ deploy:virtualbox-13.5:
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
-  dependencies:
+  needs:
     - test:virtualbox-13.5
