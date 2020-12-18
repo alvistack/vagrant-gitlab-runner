@@ -48,10 +48,7 @@
 .script-packer-build: &script-packer-build
   - |
     cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
-    sudo mkdir -p /home/vagrant/.vagrant.d/boxes
-    sudo rm -rf /root/.vagrant.d/boxes
-    sudo ln -fs /home/vagrant/.vagrant.d/boxes /root/.vagrant.d/boxes
-    sudo packer build packer.json
+    packer build packer.json
 
 .script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
   - |
