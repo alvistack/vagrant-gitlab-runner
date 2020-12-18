@@ -19,6 +19,7 @@
         "export _UUID=\"$(sudo vboxmanage showhdinfo \"$_SOURCE\" | egrep -e \"^UUID:\" | sed \"s/^UUID:\\s*//g\")\"",
         "sudo qemu-img convert -f vmdk -O qcow2 \"$_SOURCE\" \"$_TARGET\"",
         "sudo rm -rf \"$_SOURCE\"",
+        "sudo chmod a+r /boot/vmlinuz*",
         "sudo virt-sysprep --operations defaults,-ssh-userdir,-customize -a \"$_TARGET\"",
         "sudo virt-sparsify --in-place \"$_TARGET\"",
         "sudo qemu-img convert -f qcow2 -O vmdk \"$_TARGET\" \"$_SOURCE\"",

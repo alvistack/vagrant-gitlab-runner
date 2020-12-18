@@ -42,13 +42,6 @@
       changed_when: false
       ignore_errors: true
 
-    - name: chmod a+r /boot/vmlinuz*
-      raw: |
-        set -eu
-        chmod a+r /boot/vmlinuz*
-      changed_when: false
-      ignore_errors: true
-
     - name: truncate --size 0 /etc/machine-id
       raw: |
         set -eu

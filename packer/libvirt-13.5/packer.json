@@ -18,6 +18,7 @@
         "export _TARGET=\"$(echo \"$_SOURCE\" | sed \"s/.img$/.qcow2/g\")\"",
         "sudo qemu-img convert -f qcow2 -O qcow2 \"$_SOURCE\" \"$_TARGET\"",
         "sudo rm -rf \"$_SOURCE\"",
+        "sudo chmod a+r /boot/vmlinuz*",
         "sudo virt-sysprep --operations defaults,-ssh-userdir,-customize -a \"$_TARGET\"",
         "sudo virt-sparsify --in-place \"$_TARGET\"",
         "sudo qemu-img convert -f qcow2 -O qcow2 -c \"$_TARGET\" \"$_SOURCE\"",
