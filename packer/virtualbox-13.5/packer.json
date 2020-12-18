@@ -14,7 +14,7 @@
     {
       "inline": [
         "set -eu",
-        "export _SOURCE=\"$(sudo bash -c \"ls -1d /root/VirtualBox*/output-vagrant_source*/*.vmdk\")\"",
+        "export _SOURCE=\"$(sudo bash -c \"ls -1d /home/vagrant/VirtualBox*/output-vagrant_source*/*.vmdk\")\"",
         "export _TARGET=\"$(echo \"$_SOURCE\" | sed \"s/.vmdk$/.qcow2/g\")\"",
         "export _UUID=\"$(sudo vboxmanage showhdinfo \"$_SOURCE\" | egrep -e \"^UUID:\" | sed \"s/^UUID:\\s*//g\")\"",
         "sudo qemu-img convert -f vmdk -O qcow2 \"$_SOURCE\" \"$_TARGET\"",
