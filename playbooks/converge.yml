@@ -81,6 +81,7 @@
         name: "vagrant"
         groups: "{{ item.groups }}"
         append: true
+        state: "present"
       loop:
         - { groups: "docker" }
         - { groups: "kvm" }
