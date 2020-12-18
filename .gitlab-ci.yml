@@ -136,6 +136,7 @@ deploy:libvirt-13.6:
     key: "$CI_PIPELINE_ID-libvirt-13.6"
     paths:
       - packer/*/output-vagrant/*.box
+    policy: pull
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -160,6 +161,7 @@ deploy:libvirt-13.5:
     key: "$CI_PIPELINE_ID-libvirt-13.5"
     paths:
       - packer/*/output-vagrant/*.box
+    policy: pull
   variables:
     _PACKER_BUILDER_PROVIDER: "libvirt"
     _PACKER_BUILDER_VERSION: "13.5"
@@ -184,6 +186,7 @@ deploy:virtualbox-13.6:
     key: "$CI_PIPELINE_ID-virtualbox-13.6"
     paths:
       - packer/*/output-vagrant/*.box
+    policy: pull
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.6"
@@ -208,6 +211,7 @@ deploy:virtualbox-13.5:
     key: "$CI_PIPELINE_ID-virtualbox-13.5"
     paths:
       - packer/*/output-vagrant/*.box
+    policy: pull
   variables:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.5"
