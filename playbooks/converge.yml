@@ -88,3 +88,13 @@
         - { groups: "libvirt" }
         - { groups: "sudo" }
         - { groups: "vboxusers" }
+
+    - name: prepare directories
+      file:
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner | default('root') }}"
+        group: "{{ item.group | default('root') }}"
+        mode: "{{ item.mode | default('0755') }}"
+        state: "{{ item.state | default('directory') }}"
+      loop:
+        - { dest: "/home/vagrant", owner: "vagrant", group: "vagrant" }
