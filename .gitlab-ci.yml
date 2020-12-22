@@ -115,6 +115,31 @@ default:
   before_script:
     - *script-git-submodule
 
+build:libvirt-13.7:
+  <<: *job-packer-build
+  stage: build
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.7"
+    paths:
+      - packer/*/output-vagrant/*.box
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.7"
+
+deploy:libvirt-13.7:
+  <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.7"
+    paths:
+      - packer/*/output-vagrant/*.box
+    policy: pull
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.7"
+  needs:
+    - build:libvirt-13.7
+
 build:libvirt-13.6:
   <<: *job-packer-build
   stage: build
@@ -140,30 +165,30 @@ deploy:libvirt-13.6:
   needs:
     - build:libvirt-13.6
 
-build:libvirt-13.5:
+build:virtualbox-13.7:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-13.5"
+    key: "$CI_PIPELINE_ID-virtualbox-13.7"
     paths:
       - packer/*/output-vagrant/*.box
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.5"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.7"
 
-deploy:libvirt-13.5:
+deploy:virtualbox-13.7:
   <<: *job-vagrant-cloud-provider-upload
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-13.5"
+    key: "$CI_PIPELINE_ID-virtualbox-13.7"
     paths:
       - packer/*/output-vagrant/*.box
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.5"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.7"
   needs:
-    - build:libvirt-13.5
+    - build:virtualbox-13.7
 
 build:virtualbox-13.6:
   <<: *job-packer-build
@@ -189,28 +214,3 @@ deploy:virtualbox-13.6:
     _PACKER_BUILDER_VERSION: "13.6"
   needs:
     - build:virtualbox-13.6
-
-build:virtualbox-13.5:
-  <<: *job-packer-build
-  stage: build
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "13.5"
-
-deploy:virtualbox-13.5:
-  <<: *job-vagrant-cloud-provider-upload
-  stage: deploy
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-13.5"
-    paths:
-      - packer/*/output-vagrant/*.box
-    policy: pull
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "13.5"
-  needs:
-    - build:virtualbox-13.5
