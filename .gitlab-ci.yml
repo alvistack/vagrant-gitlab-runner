@@ -117,7 +117,7 @@
 
 default:
   before_script:
-    - *script-git-submodulea
+    - *script-git-submodule
     - *script-vagrant-cloud-auth-login
 
 build:libvirt-13.7:
