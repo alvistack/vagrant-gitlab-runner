@@ -5,6 +5,10 @@
     git submodule sync --recursive
     git submodule update --init --recursive
 
+.script-vagrant-cloud-auth-login: &script-vagrant-cloud-auth-login
+  - |
+    vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN
+
 .script-bootstrap-packer: &script-bootstrap-packer
   - |
     curl -skL -O https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
@@ -113,7 +117,8 @@
 
 default:
   before_script:
-    - *script-git-submodule
+    - *script-git-submodulea
+    - *script-vagrant-cloud-auth-login
 
 build:libvirt-13.7:
   <<: *job-packer-build
