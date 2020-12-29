@@ -116,7 +116,7 @@
     - *script-vagrant-cloud-provider-upload
 
 default:
-  retry: 3
+  retry: 2
   before_script:
     - *script-git-submodule
     - *script-vagrant-cloud-auth-login
