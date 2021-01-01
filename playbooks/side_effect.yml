@@ -57,9 +57,9 @@
       changed_when: false
       ignore_errors: true
 
-    - name: rm -f /var/lib/systemd/random-seed
+    - name: rm -rf /var/lib/systemd/random-seed
       raw: |
         set -eu
-        rm -f /var/lib/systemd/random-seed
+        rm -rf /var/lib/systemd/random-seed
       changed_when: false
       ignore_errors: true
