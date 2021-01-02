@@ -42,6 +42,15 @@
       changed_when: false
       ignore_errors: true
 
+    - name: passwd --lock root
+      raw: |
+        set -eu
+        PASSWD="$(pwgen -1AB 32)"
+        echo "root:$PASSWD" | chpasswd
+        passwd --lock root
+      changed_when: false
+      ignore_errors: true
+
     - name: truncate --size 0 /etc/machine-id
       raw: |
         set -eu
