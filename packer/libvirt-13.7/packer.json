@@ -15,19 +15,28 @@
       "inline": [
         "set -eu",
         "export _SOURCE=$(sudo bash -c \"ls -1d /var/lib/libvirt/images/output-vagrant_source*.img\")",
-        "export _TARGET=\"$(echo \"$_SOURCE\" | sed \"s/.img$/.qcow2/g\")\"",
+        "export _TARGET=\"output-vagrant/packer-vagrant.qcow2\"",
         "sudo qemu-img convert -f qcow2 -O qcow2 \"$_SOURCE\" \"$_TARGET\"",
         "sudo rm -rf \"$_SOURCE\"",
         "sudo chmod a+r /boot/vmlinuz*",
         "sudo virt-sysprep --operations defaults,-ssh-userdir,-customize -a \"$_TARGET\"",
         "sudo virt-sparsify --in-place \"$_TARGET\"",
         "sudo qemu-img convert -f qcow2 -O qcow2 -c \"$_TARGET\" \"$_SOURCE\"",
-        "sudo rm -rf \"$_TARGET\"",
-        "cd output-vagrant",
-        "VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-ssh-userdir,-customize\" vagrant package source",
-        "vagrant destroy --force source"
+        "sudo mv \"$_SOURCE\" \"$_TARGET\""
       ],
       "type": "shell-local"
+    },
+    {
+      "files": [
+        "output-vagrant/packer-vagrant.qcow2"
+      ],
+      "type": "artifice"
+    },
+    {
+      "compression_level": 9,
+      "keep_input_artifact": true,
+      "provider_override": "libvirt",
+      "type": "vagrant"
     }
   ],
   "provisioners": [
