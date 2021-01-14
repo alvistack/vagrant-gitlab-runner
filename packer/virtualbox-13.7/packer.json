@@ -4,7 +4,7 @@
       "communicator": "ssh",
       "provider": "virtualbox",
       "skip_package": true,
-      "source_path": "generic/ubuntu2004",
+      "source_path": "alvistack/ubuntu-20.04",
       "teardown_method": "halt",
       "template": "./Vagrantfile.template",
       "type": "vagrant"
