@@ -3,7 +3,7 @@
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE)
-[![Vagrant Box download](https://img.shields.io/vagrant/pulls/alvistack/gitlab-runner.svg)](https://hub.vagrant.com/r/alvistack/gitlab-runner/)
+\-[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-13.7&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-13.7)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.7)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
 
@@ -20,59 +20,37 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Overview
 
-This Docker container makes it easy to get an instance of GitLab Runner up and running.
-
-Based on [Official Ubuntu Docker Image](https://hub.docker.com/_/ubuntu/) with some minor hack:
-
-  - Packaging by Packer Docker builder and Ansible provisioner in single layer
-  - Handle `ENTRYPOINT` with [catatonit](https://github.com/openSUSE/catatonit)
+  - Packaging with [Packer](https://www.packer.io/)
+  - Support [Vagrant](https://www.vagrantup.com/) as default [GitLab Runner custom executor](https://docs.gitlab.com/runner/executors/README.html)
+  - Support [Libvirt](https://libvirt.org/) with [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
+  - Support [VirtualBox](https://www.virtualbox.org/)
+  - Support [Docker](https://www.docker.com/)
 
 ### Quick Start
 
-For the `VOLUME` directory that is used to store the repository data (amongst other things) we recommend mounting a host directory as a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#/data-volumes), or via a named volume if using a docker version \>= 1.9.
+Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtaulBox](https://www.virtualbox.org/) installed, run the following commands under your [project directory](https://learn.hashicorp.com/tutorials/vagrant/getting-started-project-setup?in=vagrant/getting-started):
 
-Start GitLab Runner:
-
-    # Pull latest image
-    docker pull alvistack/gitlab-runner
+    # Initialize Vagrant
+    vagrant init alvistack/gitlab-runner-13.7
     
-    # Run as detach
-    docker run \
-        -itd \
-        --name gitlab-runner \
-        --volume /etc/gitlab-runner:/etc/gitlab-runner \
-        --volume /var/run/docker.sock:/var/run/docker.sock \
-        alvistack/gitlab-runner
-
-**Success**. GitLab Runner is now available.
-
-## Upgrade
-
-To upgrade to a more recent version of GitLab Runner you can simply stop the GitLab Runner
-container and start a new one based on a more recent image:
-
-    docker stop gitlab-runner
-    docker rm gitlab-runner
-    docker run ... (see above)
-
-As your data is stored in the data volume directory on the host, it will still
-be available after the upgrade.
-
-Note: Please make sure that you don't accidentally remove the gitlab-runner container and its volumes using the -v option.
-
-## Backup
-
-For evaluations you can use the built-in database that will store its files in the GitLab Runner home directory. In that case it is sufficient to create a backup archive of the directory on the host that is used as a volume (`/var/opt/gitlab` in the example above).
+    # Start the virtual machine
+    vagrant up
+    
+    # SSH into this machine
+    vagrant ssh
+    
+    # Terminate the virtual machine
+    vagrant destroy --force
 
 ## Versioning
 
-### `alvistack/gitlab-runner:latest`
+### `YYYYMMDD.Y.Z`
 
-The `latest` tag matches the most recent [GitHub Release](https://github.com/alvistack/vagrant-gitlab-runner/releases) of this repository. Thus using `alvistack/gitlab-runner:latest` or `alvistack/gitlab-runner` will ensure you are running the most up to date stable version of this image.
+Release tags could be find from [GitHub Release](https://github.com/alvistack/vagrant-gitlab-runner/releases) of this repository. Thus using these tags will ensure you are running the most up to date stable version of this image.
 
-### `alvistack/gitlab-runner:<version>`
+### `YYYYMMDD.0.0`
 
-The version tags are rolling release rebuild by [Travis](https://travis-ci.com/alvistack/vagrant-gitlab-runner) in weekly basis. Thus using these tags will ensure you are running the latest packages provided by the base image project.
+Version tags ended with `.0.0` are rolling release rebuild by [GitLab pipeline](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines) in weekly basis. Thus using these tags will ensure you are running the latest packages provided by the base image project.
 
 ## License
 
