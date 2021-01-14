@@ -4,6 +4,12 @@
 
 ### Major Changes
 
+## 20210114.1.0 - 2021-01-14
+
+### Major Changes
+
+  - Migrate base Vagrant box from `generic/*` to `alvistack/*`
+
 ## 20201214.1.1 - 2020-12-14
 
 ### Major Changes

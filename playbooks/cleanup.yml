@@ -32,13 +32,36 @@
       changed_when: false
       ignore_errors: true
 
-    - name: apt-get -y clean
+    - name: redhat | subscription-manager unregister
+      raw: |
+        set -eu
+        subscription-manager unregister
+      changed_when: false
+      ignore_errors: true
+
+    - name: debian | apt-get -y clean
       raw: |
         set -eu
         apt-get -y autoremove
         apt-get -y autoclean
         apt-get -y clean
         rm -rf /var/lib/apt/lists/*
+      changed_when: false
+      ignore_errors: true
+
+    - name: redhat | yum clean all
+      raw: |
+        set -eu
+        yum clean all
+        rm -rf /var/cache/yum/*
+      changed_when: false
+      ignore_errors: true
+
+    - name: suse | zypper clean --all
+      raw: |
+        set -eu
+        zypper clean --all
+        rm -rf /var/cache/zypper/*
       changed_when: false
       ignore_errors: true
 
@@ -57,9 +80,9 @@
       changed_when: false
       ignore_errors: true
 
-    - name: rm -f /var/lib/systemd/random-seed
+    - name: rm -rf /var/lib/systemd/random-seed
       raw: |
         set -eu
-        rm -f /var/lib/systemd/random-seed
+        rm -rf /var/lib/systemd/random-seed
       changed_when: false
       ignore_errors: true

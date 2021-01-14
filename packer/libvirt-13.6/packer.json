@@ -4,7 +4,7 @@
       "communicator": "ssh",
       "provider": "libvirt",
       "skip_package": true,
-      "source_path": "generic/ubuntu2004",
+      "source_path": "alvistack/ubuntu-20.04",
       "teardown_method": "halt",
       "template": "./Vagrantfile.template",
       "type": "vagrant"
@@ -14,32 +14,22 @@
     {
       "inline": [
         "set -eu",
-        "export _SOURCE=$(sudo bash -c \"ls -1d /var/lib/libvirt/images/output-vagrant_source*.img\")",
-        "export _TARGET=\"$(echo \"$_SOURCE\" | sed \"s/.img$/.qcow2/g\")\"",
-        "sudo qemu-img convert -f qcow2 -O qcow2 \"$_SOURCE\" \"$_TARGET\"",
-        "sudo rm -rf \"$_SOURCE\"",
+        "export _IMAGE=$(sudo bash -c \"ls -1d /var/lib/libvirt/images/output-vagrant_source*.img\")",
+        "sudo qemu-img convert -f qcow2 -O qcow2 \"$_IMAGE\" \"$_IMAGE.convert\"",
+        "sudo rm -rf \"$_IMAGE\"",
         "sudo chmod a+r /boot/vmlinuz*",
-        "sudo virt-sysprep --operations defaults,-ssh-userdir,-customize -a \"$_TARGET\"",
-        "sudo virt-sparsify --in-place \"$_TARGET\"",
-        "sudo qemu-img convert -f qcow2 -O qcow2 -c \"$_TARGET\" \"$_SOURCE\"",
-        "sudo rm -rf \"$_TARGET\"",
+        "sudo virt-sysprep --operations defaults,-ssh-userdir,-customize -a \"$_IMAGE.convert\"",
+        "sudo virt-sparsify --in-place \"$_IMAGE.convert\"",
+        "sudo qemu-img convert -f qcow2 -O qcow2 -c \"$_IMAGE.convert\" \"$_IMAGE\"",
+        "sudo rm -rf \"$_IMAGE.convert\"",
         "cd output-vagrant",
-        "VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-ssh-userdir,-customize\" vagrant package source",
+        "vagrant package source",
         "vagrant destroy --force source"
       ],
       "type": "shell-local"
-    }
+     }
   ],
   "provisioners": [
-    {
-      "inline": [
-        "set -eu",
-        "sudo apt-get update",
-        "sudo apt-get dist-upgrade -y",
-        "sudo apt-get install -y ca-certificates curl gcc iproute2 python3 python3-dev sudo"
-      ],
-      "type": "shell"
-    },
     {
       "galaxy_file": "./ansible-galaxy-requirements.yml",
       "inventory_directory": "./",
