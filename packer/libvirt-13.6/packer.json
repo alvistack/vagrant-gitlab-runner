@@ -23,11 +23,11 @@
         "sudo qemu-img convert -f qcow2 -O qcow2 -c \"$_IMAGE.convert\" \"$_IMAGE\"",
         "sudo rm -rf \"$_IMAGE.convert\"",
         "cd output-vagrant",
-        "vagrant package source",
+        "VAGRANT_LIBVIRT_VIRT_SYSPREP_OPERATIONS=\"defaults,-ssh-userdir,-customize\" vagrant package source",
         "vagrant destroy --force source"
       ],
       "type": "shell-local"
-     }
+    }
   ],
   "provisioners": [
     {
