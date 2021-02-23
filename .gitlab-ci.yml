@@ -66,10 +66,6 @@
 
 .script-vagrant-cloud-provider-upload: &script-vagrant-cloud-provider-upload
   - |
-    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
-    export _ORG=$CI_PROJECT_NAMESPACE
-    export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
-    export _PROVIDER=$_PACKER_BUILDER_PROVIDER
     if [[ -n "$CI_COMMIT_TAG" ]] && [[ "$CI_COMMIT_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
       export _VERSION=$CI_COMMIT_TAG
     elif [[ -n "$CI_COMMIT_BRANCH" ]] && [[ "$CI_COMMIT_BRANCH" =~ master ]]; then
@@ -77,6 +73,10 @@
     else
       exit 0
     fi
+    cd $CI_PROJECT_DIR/packer/$_PACKER_BUILDER_PROVIDER-$_PACKER_BUILDER_VERSION
+    export _ORG=$CI_PROJECT_NAMESPACE
+    export _BOX=$(echo $CI_PROJECT_NAME | sed "s/^vagrant-//g")-$_PACKER_BUILDER_VERSION
+    export _PROVIDER=$_PACKER_BUILDER_PROVIDER
     curl -skL \
       --header "Content-Type: application/json" \
       --header "Authorization: Bearer $VAGRANT_CLOUD_TOKEN" \
@@ -130,6 +130,31 @@ default:
   before_script:
     - *script-git-submodule
 
+build:libvirt-13.9:
+  <<: *job-packer-build
+  stage: build
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.9"
+    paths:
+      - packer/*/output-vagrant/*.box
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.9"
+
+deploy:libvirt-13.9:
+  <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-13.9"
+    paths:
+      - packer/*/output-vagrant/*.box
+    policy: pull
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "13.9"
+  needs:
+    - build:libvirt-13.9
+
 build:libvirt-13.8:
   <<: *job-packer-build
   stage: build
@@ -155,30 +180,30 @@ deploy:libvirt-13.8:
   needs:
     - build:libvirt-13.8
 
-build:libvirt-13.7:
+build:virtualbox-13.9:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-13.7"
+    key: "$CI_PIPELINE_ID-virtualbox-13.9"
     paths:
       - packer/*/output-vagrant/*.box
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.7"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.9"
 
-deploy:libvirt-13.7:
+deploy:virtualbox-13.9:
   <<: *job-vagrant-cloud-provider-upload
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-13.7"
+    key: "$CI_PIPELINE_ID-virtualbox-13.9"
     paths:
       - packer/*/output-vagrant/*.box
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "13.7"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "13.9"
   needs:
-    - build:libvirt-13.7
+    - build:virtualbox-13.9
 
 build:virtualbox-13.8:
   <<: *job-packer-build
@@ -204,28 +229,3 @@ deploy:virtualbox-13.8:
     _PACKER_BUILDER_VERSION: "13.8"
   needs:
     - build:virtualbox-13.8
-
-build:virtualbox-13.7:
-  <<: *job-packer-build
-  stage: build
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-13.7"
-    paths:
-      - packer/*/output-vagrant/*.box
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "13.7"
-
-deploy:virtualbox-13.7:
-  <<: *job-vagrant-cloud-provider-upload
-  stage: deploy
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-13.7"
-    paths:
-      - packer/*/output-vagrant/*.box
-    policy: pull
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "13.7"
-  needs:
-    - build:virtualbox-13.7
