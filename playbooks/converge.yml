@@ -107,6 +107,19 @@
         - { groups: "kvm" }
         - { groups: "libvirt" }
 
+    - name: vagrant plugin install vagrant-libvirt
+      environment:
+        PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      shell: |
+        set -euo pipefail
+        ln -fs /usr/bin/ld.gold /usr/bin/ld
+        sudo -u vagrant vagrant plugin install vagrant-libvirt
+      args:
+        executable: "/bin/bash"
+      register: result
+      until: result is succeeded
+      changed_when: result is not succeeded
+
     - include_role:
         name: virtualbox
 
