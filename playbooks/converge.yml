@@ -120,4 +120,7 @@
         - { groups: "vboxusers" }
 
     - include_role:
+        name: molecule
+
+    - include_role:
         name: gitlab_runner
