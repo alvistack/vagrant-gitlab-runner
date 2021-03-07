@@ -107,7 +107,7 @@
         - { groups: "kvm" }
         - { groups: "libvirt" }
 
-    - name: vagrant plugin install vagrant-libvirt
+    - name: sudo -u vagrant vagrant plugin install vagrant-libvirt
       environment:
         PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       shell: |
