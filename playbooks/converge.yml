@@ -52,37 +52,48 @@
     - name: include default tasks
       include_tasks: "./tasks/main.yml"
 
-    - include_role:
+    - name: include role
+      include_role:
         name: bootstrap
 
-    - include_role:
+    - name: include role
+      include_role:
         name: python
 
-    - include_role:
+    - name: include role
+      include_role:
         name: locales
 
-    - include_role:
+    - name: include role
+      include_role:
         name: timezone
 
-    - include_role:
+    - name: include role
+      include_role:
         name: kernel
 
-    - include_role:
+    - name: include role
+      include_role:
         name: sshd
 
-    - include_role:
+    - name: include role
+      include_role:
         name: git
 
-    - include_role:
+    - name: include role
+      include_role:
         name: ansible
 
-    - include_role:
+    - name: include role
+      include_role:
         name: packer
 
-    - include_role:
+    - name: include role
+      include_role:
         name: vagrant
 
-    - include_role:
+    - name: include role
+      include_role:
         name: docker
 
     - name: useradd
@@ -94,7 +105,8 @@
       loop:
         - { groups: "docker" }
 
-    - include_role:
+    - name: include role
+      include_role:
         name: libvirt
 
     - name: useradd
@@ -120,7 +132,8 @@
       until: result is succeeded
       changed_when: result is not succeeded
 
-    - include_role:
+    - name: include role
+      include_role:
         name: virtualbox
 
     - name: useradd
@@ -132,8 +145,10 @@
       loop:
         - { groups: "vboxusers" }
 
-    - include_role:
+    - name: include role
+      include_role:
         name: molecule
 
-    - include_role:
+    - name: include role
+      include_role:
         name: gitlab_runner
