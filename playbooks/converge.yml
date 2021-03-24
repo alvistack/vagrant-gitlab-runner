@@ -54,10 +54,6 @@
 
     - name: include role
       include_role:
-        name: bootstrap
-
-    - name: include role
-      include_role:
         name: python
 
     - name: include role
@@ -70,11 +66,15 @@
 
     - name: include role
       include_role:
-        name: kernel
+        name: sshd
 
     - name: include role
       include_role:
-        name: sshd
+        name: bootstrap
+
+    - name: include role
+      include_role:
+        name: kernel
 
     - name: include role
       include_role:
