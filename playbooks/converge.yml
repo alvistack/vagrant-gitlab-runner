@@ -98,12 +98,12 @@
 
     - name: useradd
       user:
-        name: "vagrant"
+        name: "{{ item.name }}"
         groups: "{{ item.groups }}"
         append: true
         state: "present"
       loop:
-        - { groups: "docker" }
+        - { name: "vagrant", groups: "docker" }
 
     - name: include role
       include_role:
@@ -111,13 +111,13 @@
 
     - name: useradd
       user:
-        name: "vagrant"
+        name: "{{ item.name }}"
         groups: "{{ item.groups }}"
         append: true
         state: "present"
       loop:
-        - { groups: "kvm" }
-        - { groups: "libvirt" }
+        - { name: "vagrant", groups: "kvm" }
+        - { name: "vagrant", groups: "libvirt" }
 
     - name: sudo -u vagrant vagrant plugin install vagrant-libvirt
       environment:
@@ -138,12 +138,12 @@
 
     - name: useradd
       user:
-        name: "vagrant"
+        name: "{{ item.name }}"
         groups: "{{ item.groups }}"
         append: true
         state: "present"
       loop:
-        - { groups: "vboxusers" }
+        - { name: "vagrant", groups: "vboxusers" }
 
     - name: include role
       include_role:
