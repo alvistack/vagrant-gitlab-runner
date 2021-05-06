@@ -78,21 +78,6 @@
       include_role:
         name: git
 
-    - name: git config
-      become: true
-      become_user: "vagrant"
-      git_config:
-        scope: "{{ item.scope }}"
-        name: "{{ item.name }}"
-        value: "{{ item.value }}"
-        state: "{{ item.state }}"
-      loop:
-        - { state: "present", scope: "global", name: "color.ui", value: "auto" }
-        - { state: "present", scope: "global", name: "commit.gpgsign", value: "true" }
-        - { state: "present", scope: "global", name: "format.signoff", value: "true" }
-        - { state: "present", scope: "global", name: "init.defaultBranch", value: "master" }
-        - { state: "present", scope: "global", name: "push.default", value: "simple" }
-
     - name: include role
       include_role:
         name: ansible
