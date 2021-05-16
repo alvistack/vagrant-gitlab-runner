@@ -14,5 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gitlab_runner_version: "13.11.0"
-gitlab_runner_runners_vagrant_image: "alvistack/gitlab-runner-13.11"
+gitlab_release: "13.11"

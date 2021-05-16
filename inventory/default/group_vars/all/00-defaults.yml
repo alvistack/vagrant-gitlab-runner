@@ -14,6 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# vagrant
+vagrant_default_provider: "libvirt"
+
 # gitlab-runner
 gitlab_runner_concurrent: "1"
 gitlab_runner_runners_name: "alvistack/gitlab-runner"
@@ -26,6 +29,3 @@ gitlab_runner_runners_vagrant_nested: true
 gitlab_runner_runners_vagrant_management_network_name: "gitlab-runner"
 gitlab_runner_runners_vagrant_management_network_address: "172.16.121.0/24"
 gitlab_runner_runners_vagrant_boxes_dir: "/home/vagrant/.vagrant.d/boxes"
-
-# vagrant
-vagrant_default_provider: "libvirt"
