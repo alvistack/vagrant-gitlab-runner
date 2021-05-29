@@ -6,6 +6,10 @@
 	path = roles/bootstrap
 	url = https://github.com/alvistack/ansible-role-bootstrap.git
 	branch = develop
+[submodule "roles/cloud_init"]
+	path = roles/cloud_init
+	url = https://github.com/alvistack/ansible-role-cloud_init.git
+	branch = develop
 [submodule "roles/docker"]
 	path = roles/docker
 	url = https://github.com/alvistack/ansible-role-docker.git
