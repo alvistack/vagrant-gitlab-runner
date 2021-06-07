@@ -22,10 +22,6 @@
 	path = roles/gitlab_runner
 	url = https://github.com/alvistack/ansible-role-gitlab_runner.git
 	branch = develop
-[submodule "roles/gnome_desktop"]
-	path = roles/gnome_desktop
-	url = https://github.com/alvistack/ansible-role-gnome_desktop.git
-	branch = develop
 [submodule "roles/kernel"]
 	path = roles/kernel
 	url = https://github.com/alvistack/ansible-role-kernel.git

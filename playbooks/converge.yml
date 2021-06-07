@@ -101,10 +101,6 @@
 
     - name: include role
       include_role:
-        name: gnome_desktop
-
-    - name: include role
-      include_role:
         name: git
 
     - name: include role
