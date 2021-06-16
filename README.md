@@ -4,7 +4,9 @@
 [![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE)
 \-[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-13.12&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-13.12)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.12)
+
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
+
 Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Boxes and Respective Packer Template Links
@@ -27,14 +29,18 @@ Learn more about GitLab: <https://about.gitlab.com/>
 ### Quick Start
 
 Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtaulBox](https://www.virtualbox.org/) installed, run the following commands under your [project directory](https://learn.hashicorp.com/tutorials/vagrant/getting-started-project-setup?in=vagrant/getting-started):
-\# Initialize Vagrant
-vagrant init alvistack/gitlab-runner-13.12
-\# Start the virtual machine
-vagrant up
-\# SSH into this machine
-vagrant ssh
-\# Terminate the virtual machine
-vagrant destroy --force
+
+    # Initialize Vagrant
+    vagrant init alvistack/gitlab-runner-13.12
+    
+    # Start the virtual machine
+    vagrant up
+    
+    # SSH into this machine
+    vagrant ssh
+    
+    # Terminate the virtual machine
+    vagrant destroy --force
 
 ## Versioning
 
