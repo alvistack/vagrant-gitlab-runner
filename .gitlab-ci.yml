@@ -218,9 +218,9 @@ deploy:libvirt-13.12:
   needs:
     - build:libvirt-13.12
 
-build:virtualbox-14.0:
+test:virtualbox-14.0:
   <<: *job-packer-build
-  stage: build
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-14.0"
     paths:
@@ -241,11 +241,11 @@ deploy:virtualbox-14.0:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "14.0"
   needs:
-    - build:virtualbox-14.0
+    - test:virtualbox-14.0
 
-build:virtualbox-13.12:
+test:virtualbox-13.12:
   <<: *job-packer-build
-  stage: build
+  stage: test
   cache:
     key: "$CI_PIPELINE_ID-virtualbox-13.12"
     paths:
@@ -266,4 +266,4 @@ deploy:virtualbox-13.12:
     _PACKER_BUILDER_PROVIDER: "virtualbox"
     _PACKER_BUILDER_VERSION: "13.12"
   needs:
-    - build:virtualbox-13.12
+    - test:virtualbox-13.12
