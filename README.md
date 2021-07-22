@@ -7,7 +7,7 @@ release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.s
 [![GitHub
 license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE)
 -[![Vagrant Box
-download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.0&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.0)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.0)
+download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.1&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.1)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.1)
 
 GitLab is a complete DevOps platform, delivered as a single application.
 This makes GitLab unique and makes Concurrent DevOps possible, unlocking
@@ -20,12 +20,12 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Boxes and Respective Packer Template Links
 
+  - [`alvistack/gitlab-runner-14.1`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.1)
+      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-14.1/packer.json)
+      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-14.1/packer.json)
   - [`alvistack/gitlab-runner-14.0`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.0)
       - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-14.0/packer.json)
       - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-14.0/packer.json)
-  - [`alvistack/gitlab-runner-13.12`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-13.12)
-      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-13.12/packer.json)
-      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-13.12/packer.json)
 
 ## Overview
 
@@ -46,7 +46,7 @@ commands under your [project
 directory](https://learn.hashicorp.com/tutorials/vagrant/getting-started-project-setup?in=vagrant/getting-started):
 
     # Initialize Vagrant
-    vagrant init alvistack/gitlab-runner-14.0
+    vagrant init alvistack/gitlab-runner-14.1
     
     # Start the virtual machine
     vagrant up
@@ -76,8 +76,8 @@ latest packages provided by the base image project.
 ## License
 
   - Code released under [Apache License 2.0](LICENSE)
-  - Docs released under [CC
-    BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+  - Docs released under [CC BY
+    4.0](http://creativecommons.org/licenses/by/4.0/)
 
 ## Author Information
 
