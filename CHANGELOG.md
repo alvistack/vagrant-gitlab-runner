@@ -23,21 +23,16 @@
 
 ### Major Changes
 
-  - Bugfix [ansible-lint
-    `namespace`](https://github.com/ansible-community/ansible-lint/pull/1451)
-  - Bugfix [ansible-lint
-    `no-handler`](https://github.com/ansible-community/ansible-lint/pull/1402)
-  - Bugfix [ansible-lint
-    `unnamed-task`](https://github.com/ansible-community/ansible-lint/pull/1413)
+  - Bugfix [ansible-lint `namespace`](https://github.com/ansible-community/ansible-lint/pull/1451)
+  - Bugfix [ansible-lint `no-handler`](https://github.com/ansible-community/ansible-lint/pull/1402)
+  - Bugfix [ansible-lint `unnamed-task`](https://github.com/ansible-community/ansible-lint/pull/1413)
 
 ## 20210116.1.0 - 2021-01-16
 
 ### Major Changes
 
-  - Support [QEMU Guest
-    Agent](https://wiki.qemu.org/Features/GuestAgent)
-  - Support [VirtualBox Guest
-    Additions](https://www.virtualbox.org/manual/ch04.html)
+  - Support [QEMU Guest Agent](https://wiki.qemu.org/Features/GuestAgent)
+  - Support [VirtualBox Guest Additions](https://www.virtualbox.org/manual/ch04.html)
 
 ## 20210114.1.0 - 2021-01-14
 
@@ -55,8 +50,5 @@
 ## 13.6.0-4alvistack1 - 2020-11-23
 
   - Ubuntu 20.04 based
-  - Base box running by [Vagrant Libvirt
-    Provider](https://github.com/vagrant-libvirt/vagrant-libvirt)
-  - Provision by [Ansible](https://www.ansible.com/) and [Molecule
-    Vagrant
-    Plugin](https://github.com/ansible-community/molecule-vagrant)
+  - Base box running by [Vagrant Libvirt Provider](https://github.com/vagrant-libvirt/vagrant-libvirt)
+  - Provision by [Ansible](https://www.ansible.com/) and [Molecule Vagrant Plugin](https://github.com/ansible-community/molecule-vagrant)
