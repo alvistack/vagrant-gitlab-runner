@@ -1,5 +1,7 @@
 # Vagrant Box Packaging for GitLab Runner
 
+<img src="/alvistack.svg" width="75" alt="AlviStack">
+
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
 [![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
 [![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.2&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.2)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.2)
