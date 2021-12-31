@@ -113,16 +113,35 @@
 
     - name: include role
       include_role:
-        name: docker
+        name: runc
 
-    - name: useradd
-      user:
-        name: "{{ item.name }}"
-        groups: "{{ item.groups }}"
-        append: true
-        state: "present"
-      loop:
-        - { name: "vagrant", groups: "docker" }
+    - name: include role
+      include_role:
+        name: crun
+
+    - name: include role
+      include_role:
+        name: containers_common
+
+    - name: include role
+      include_role:
+        name: containernetworking_plugins
+
+    - name: include role
+      include_role:
+        name: conmon
+
+    - name: include role
+      include_role:
+        name: skopeo
+
+    - name: include role
+      include_role:
+        name: buildah
+
+    - name: include role
+      include_role:
+        name: podman
 
     - name: include role
       include_role:
