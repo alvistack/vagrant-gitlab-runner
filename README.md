@@ -3,7 +3,7 @@
 <img src="/alvistack.svg" width="75" alt="AlviStack">
 
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
-[![GitHub release](https://img.shields.io/github/release/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/releases)
+[![GitHub tag](https://img.shields.io/github/tag/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/tags)
 [![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.6&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.6)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.6)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
@@ -47,7 +47,7 @@ Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [Virtau
 
 ### `YYYYMMDD.Y.Z`
 
-Release tags could be find from [GitHub Release](https://github.com/alvistack/vagrant-gitlab-runner/releases) of this repository. Thus using these tags will ensure you are running the most up to date stable version of this image.
+Release tags could be find from [GitHub Release](https://github.com/alvistack/vagrant-gitlab-runner/tags) of this repository. Thus using these tags will ensure you are running the most up to date stable version of this image.
 
 ### `YYYYMMDD.0.0`
 
