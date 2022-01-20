@@ -4,7 +4,7 @@
 
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
 [![GitHub tag](https://img.shields.io/github/tag/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/tags)
-[![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.6&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.6)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.6)
+[![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-14.7&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-14.7)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.7)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
 
@@ -12,12 +12,12 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Boxes and Respective Packer Template Links
 
+  - [`alvistack/gitlab-runner-14.7`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.7)
+      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-14.7/packer.json)
+      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-14.7/packer.json)
   - [`alvistack/gitlab-runner-14.6`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.6)
       - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-14.6/packer.json)
       - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-14.6/packer.json)
-  - [`alvistack/gitlab-runner-14.5`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-14.5)
-      - [`libvirt`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/libvirt-14.5/packer.json)
-      - [`virtualbox`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/virtualbox-14.5/packer.json)
 
 ## Overview
 
@@ -32,7 +32,7 @@ Learn more about GitLab: <https://about.gitlab.com/>
 Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtaulBox](https://www.virtualbox.org/) installed, run the following commands under your [project directory](https://learn.hashicorp.com/tutorials/vagrant/getting-started-project-setup?in=vagrant/getting-started):
 
     # Initialize Vagrant
-    vagrant init alvistack/gitlab-runner-14.6
+    vagrant init alvistack/gitlab-runner-14.7
     
     # Start the virtual machine
     vagrant up
