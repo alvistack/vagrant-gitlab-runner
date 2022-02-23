@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gitlab_runner_release: "14.6"
+gitlab_runner_release: "14.8"
