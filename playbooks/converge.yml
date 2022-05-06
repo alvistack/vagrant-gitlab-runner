@@ -62,31 +62,31 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.python
+        name: python
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.ansible
+        name: ansible
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.locales
+        name: locales
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.timezone
+        name: timezone
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.kernel
+        name: kernel
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.cloud_init
+        name: cloud_init
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.sshd
+        name: sshd
 
     - name: rm -rf /etc/ssh/ssh_host_*
       ansible.builtin.raw: |
@@ -97,51 +97,51 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.bootstrap
+        name: bootstrap
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.git
+        name: git
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.packer
+        name: packer
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.vagrant
+        name: vagrant
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.crun
+        name: crun
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.containers_common
+        name: containers_common
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.containernetworking_plugins
+        name: containernetworking_plugins
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.conmon
+        name: conmon
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.skopeo
+        name: skopeo
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.buildah
+        name: buildah
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.podman
+        name: podman
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.libvirt
+        name: libvirt
 
     - name: useradd
       ansible.builtin.user:
@@ -169,7 +169,7 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.virtualbox
+        name: virtualbox
 
     - name: useradd
       ansible.builtin.user:
@@ -182,8 +182,8 @@
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.molecule
+        name: molecule
 
     - name: include role
       ansible.builtin.include_role:
-        name: alvistack.gitlab_runner
+        name: gitlab_runner
