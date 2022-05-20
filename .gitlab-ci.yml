@@ -9,8 +9,8 @@
   - |
     if ! [[ -x "$(command -v pipx)" ]]; then
       export DEBIAN_FRONTEND="noninteractive"
-      echo "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
-      curl -fsSL https://download.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
+      echo "deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
+      curl -fsSL https://downloadcontent.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
       sudo -E apt-get update
       sudo -E apt-get install -y bzip2 ca-certificates curl flake8 gcc gnupg gzip iproute2 procps python3 python3-apt python3-cryptography python3-flake8 python3-jmespath python3-lxml python3-netaddr python3-pip python3-pipx python3-setuptools python3-venv python3-virtualenv python3-wheel python3-yamllint sudo tar unzip xz-utils zip
     fi
@@ -23,8 +23,8 @@
   - |
     if ! [[ -x "$(command -v ansible)" ]]; then
       export DEBIAN_FRONTEND="noninteractive"
-      echo "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
-      curl -fsSL https://download.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
+      echo "deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
+      curl -fsSL https://downloadcontent.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
       sudo -E apt-get update
       sudo -E apt-get install -y ansible python3-ansible-lint python3-docker python3-netaddr python3-vagrant
     fi
@@ -35,8 +35,8 @@
   - |
     if ! [[ -x "$(command -v molecule)" ]]; then
       export DEBIAN_FRONTEND="noninteractive"
-      echo "deb http://download.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
-      curl -fsSL https://download.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
+      echo "deb http://downloadcontent.opensuse.org/repositories/home:/alvistack/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/home:alvistack.list
+      curl -fsSL https://downloadcontent.opensuse.org/repositories/home:alvistack/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_alvistack.gpg > /dev/null
       sudo -E apt-get update
       sudo -E apt-get install -y python3-molecule python3-molecule-docker python3-molecule-vagrant
     fi
@@ -204,6 +204,45 @@ default:
   before_script:
     - *script-git-submodule
 
+build:libvirt-15.0:
+  <<: *job-packer-build
+  stage: build
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-15.0"
+    paths:
+      - packer/*/output-vagrant
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "15.0"
+
+test:libvirt-15.0:
+  <<: *job-molecule
+  stage: test
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-15.0"
+    paths:
+      - packer/*/output-vagrant
+    policy: pull
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "15.0"
+  needs:
+    - build:libvirt-15.0
+
+deploy:libvirt-15.0:
+  <<: *job-vagrant-cloud-provider-upload
+  stage: deploy
+  cache:
+    key: "$CI_PIPELINE_ID-libvirt-15.0"
+    paths:
+      - packer/*/output-vagrant
+    policy: pull
+  variables:
+    _PACKER_BUILDER_PROVIDER: "libvirt"
+    _PACKER_BUILDER_VERSION: "15.0"
+  needs:
+    - test:libvirt-15.0
+
 build:libvirt-14.10:
   <<: *job-packer-build
   stage: build
@@ -243,44 +282,44 @@ deploy:libvirt-14.10:
   needs:
     - test:libvirt-14.10
 
-build:libvirt-14.9:
+build:virtualbox-15.0:
   <<: *job-packer-build
   stage: build
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-14.9"
+    key: "$CI_PIPELINE_ID-virtualbox-15.0"
     paths:
       - packer/*/output-vagrant
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "14.9"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "15.0"
 
-test:libvirt-14.9:
+test:virtualbox-15.0:
   <<: *job-molecule
   stage: test
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-14.9"
+    key: "$CI_PIPELINE_ID-virtualbox-15.0"
     paths:
       - packer/*/output-vagrant
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "14.9"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "15.0"
   needs:
-    - build:libvirt-14.9
+    - build:virtualbox-15.0
 
-deploy:libvirt-14.9:
+deploy:virtualbox-15.0:
   <<: *job-vagrant-cloud-provider-upload
   stage: deploy
   cache:
-    key: "$CI_PIPELINE_ID-libvirt-14.9"
+    key: "$CI_PIPELINE_ID-virtualbox-15.0"
     paths:
       - packer/*/output-vagrant
     policy: pull
   variables:
-    _PACKER_BUILDER_PROVIDER: "libvirt"
-    _PACKER_BUILDER_VERSION: "14.9"
+    _PACKER_BUILDER_PROVIDER: "virtualbox"
+    _PACKER_BUILDER_VERSION: "15.0"
   needs:
-    - test:libvirt-14.9
+    - test:virtualbox-15.0
 
 build:virtualbox-14.10:
   <<: *job-packer-build
@@ -320,42 +359,3 @@ deploy:virtualbox-14.10:
     _PACKER_BUILDER_VERSION: "14.10"
   needs:
     - test:virtualbox-14.10
-
-build:virtualbox-14.9:
-  <<: *job-packer-build
-  stage: build
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-14.9"
-    paths:
-      - packer/*/output-vagrant
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "14.9"
-
-test:virtualbox-14.9:
-  <<: *job-molecule
-  stage: test
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-14.9"
-    paths:
-      - packer/*/output-vagrant
-    policy: pull
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "14.9"
-  needs:
-    - build:virtualbox-14.9
-
-deploy:virtualbox-14.9:
-  <<: *job-vagrant-cloud-provider-upload
-  stage: deploy
-  cache:
-    key: "$CI_PIPELINE_ID-virtualbox-14.9"
-    paths:
-      - packer/*/output-vagrant
-    policy: pull
-  variables:
-    _PACKER_BUILDER_PROVIDER: "virtualbox"
-    _PACKER_BUILDER_VERSION: "14.9"
-  needs:
-    - test:virtualbox-14.9

@@ -21,7 +21,7 @@ driver:
   provision: true
 platforms:
   - name: ${_MOLECULE_INSTANCE_NAME}-1
-    box: alvistack/gitlab-runner-14.9
+    box: alvistack/gitlab-runner-14.10
     cpu: 2
     memory: 8192
     provider_raw_config_args:
