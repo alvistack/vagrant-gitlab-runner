@@ -18,6 +18,15 @@
   remote_user: root
   become: true
   tasks:
+    - name: rm -rf /home/vagrant/.bash_logout
+      ansible.builtin.shell: |
+        set -euxo pipefail
+        rm -rf /home/vagrant/.bash_logout
+      args:
+        executable: "/bin/bash"
+      changed_when: false
+      failed_when: false
+
     - name: prepare directories
       ansible.builtin.file:
         dest: "{{ item.dest }}"
