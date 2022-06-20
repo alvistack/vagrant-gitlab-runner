@@ -248,6 +248,8 @@ build:gitlab-runner-15.0-virtualbox:
   variables:
     _BOX: "gitlab-runner-15.0"
     _PROVIDER: "virtualbox"
+  allow_failure: true
+  retry: 0
 
 test:gitlab-runner-15.0-virtualbox:
   <<: *job-molecule-test
@@ -262,6 +264,8 @@ test:gitlab-runner-15.0-virtualbox:
     _PROVIDER: "virtualbox"
   needs:
     - build:gitlab-runner-15.0-virtualbox
+  allow_failure: true
+  retry: 0
 
 deploy:gitlab-runner-15.0-virtualbox:
   <<: *job-vagrant-cloud-provider-upload
@@ -276,6 +280,8 @@ deploy:gitlab-runner-15.0-virtualbox:
     _PROVIDER: "virtualbox"
   needs:
     - test:gitlab-runner-15.0-virtualbox
+  allow_failure: true
+  retry: 0
 
 build:gitlab-runner-14.10-libvirt:
   <<: *job-packer-build
@@ -326,6 +332,8 @@ build:gitlab-runner-14.10-virtualbox:
   variables:
     _BOX: "gitlab-runner-14.10"
     _PROVIDER: "virtualbox"
+  allow_failure: true
+  retry: 0
 
 test:gitlab-runner-14.10-virtualbox:
   <<: *job-molecule-test
@@ -340,6 +348,8 @@ test:gitlab-runner-14.10-virtualbox:
     _PROVIDER: "virtualbox"
   needs:
     - build:gitlab-runner-14.10-virtualbox
+  allow_failure: true
+  retry: 0
 
 deploy:gitlab-runner-14.10-virtualbox:
   <<: *job-vagrant-cloud-provider-upload
@@ -354,3 +364,5 @@ deploy:gitlab-runner-14.10-virtualbox:
     _PROVIDER: "virtualbox"
   needs:
     - test:gitlab-runner-14.10-virtualbox
+  allow_failure: true
+  retry: 0
