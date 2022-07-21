@@ -4,7 +4,7 @@
 
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/alvistack/vagrant-gitlab-runner/master)](https://gitlab.com/alvistack/vagrant-gitlab-runner/-/pipelines)
 [![GitHub tag](https://img.shields.io/github/tag/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/tags)
-[![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-15.1&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-15.1)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-15.1)
+[![GitHub license](https://img.shields.io/github/license/alvistack/vagrant-gitlab-runner.svg)](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/LICENSE) -[![Vagrant Box download](https://img.shields.io/badge/dynamic/json?label=alvistack%2Fgitlab-runner-15.2&query=%24.boxes%5B%3A1%5D.downloads&url=https%3A%2F%2Fapp.vagrantup.com%2Fapi%2Fv1%2Fsearch%3Fq%3Dalvistack%2Fgitlab-runner-15.2)](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-15.2)
 
 GitLab is a complete DevOps platform, delivered as a single application. This makes GitLab unique and makes Concurrent DevOps possible, unlocking your organization from the constraints of a pieced together toolchain. Join us for a live Q\&A to learn how GitLab can give you unmatched visibility and higher levels of efficiency in a single application across the DevOps lifecycle.
 
@@ -12,12 +12,12 @@ Learn more about GitLab: <https://about.gitlab.com/>
 
 ## Supported Boxes and Respective Packer Template Links
 
+  - [`alvistack/gitlab-runner-15.2`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-15.2)
+      - [`packer/gitlab-runner-15.2-libvirt/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.2-libvirt/packer.json)
+      - [`packer/gitlab-runner-15.2-virtualbox/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.2-virtualbox/packer.json)
   - [`alvistack/gitlab-runner-15.1`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-15.1)
       - [`packer/gitlab-runner-15.1-libvirt/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.1-libvirt/packer.json)
       - [`packer/gitlab-runner-15.1-virtualbox/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.1-virtualbox/packer.json)
-  - [`alvistack/gitlab-runner-15.0`](https://app.vagrantup.com/alvistack/boxes/gitlab-runner-15.0)
-      - [`packer/gitlab-runner-15.0-libvirt/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.0-libvirt/packer.json)
-      - [`packer/gitlab-runner-15.0-virtualbox/packer.json`](https://github.com/alvistack/vagrant-gitlab-runner/blob/master/packer/gitlab-runner-15.0-virtualbox/packer.json)
 
 ## Overview
 
@@ -36,7 +36,7 @@ Learn more about GitLab: <https://about.gitlab.com/>
 Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [VirtaulBox](https://www.virtualbox.org/) installed, run the following commands under your [project directory](https://learn.hashicorp.com/tutorials/vagrant/getting-started-project-setup?in=vagrant/getting-started):
 
     # Initialize Vagrant
-    vagrant init alvistack/gitlab-runner-15.1
+    vagrant init alvistack/gitlab-runner-15.2
     
     # Start the virtual machine
     vagrant up
@@ -51,8 +51,8 @@ Once you have [Vagrant](https://www.vagrantup.com/docs/installation) and [Virtau
 
 You could also run our [Molecule](https://molecule.readthedocs.io/en/stable/) test cases if you have [Vagrant](https://www.vagrantup.com/) and [Libvirt](https://libvirt.org/) installed, e.g.
 
-    # Run Molecule on GitLab Runner 15.1
-    molecule converge -s gitlab-runner-15.1-libvirt
+    # Run Molecule on GitLab Runner 15.2
+    molecule converge -s gitlab-runner-15.2-libvirt
 
 Please refer to [.gitlab-ci.yml](.gitlab-ci.yml) for more information on running Molecule.
 
