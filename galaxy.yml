@@ -15,7 +15,7 @@
 # limitations under the License.
 
 namespace: alvistack
-name: vagrant-gitlab-runner
+name: gitlab_runner
 description: Vagrant Box Packaging for GitLab Runner
 
 version: 0.0.0
